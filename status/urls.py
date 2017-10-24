@@ -17,8 +17,10 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from . import views
+from scripts.views import sql_out
 
 urlpatterns = [
     url(r'blank/$', views.blank, name='blank'),
+    url(r'sql_out/$', sql_out, name='sql_out'),
     url(r'^$', views.status, name='status'),
 ]
