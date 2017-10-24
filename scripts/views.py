@@ -84,6 +84,16 @@ def pull_data_spat(sql):
     return rows
 
 def outage_crawler(request):
+
+    scripts = Script.objects.filter(uni_id__contains='OUTCAW')
+    if not scripts:
+        sc = Script(uni_id='OUTCAW', name='Outage Crawler', desc = 'Generates uptime records')
+        sc.save()
+
+    scr = Script.objects.get(uni_id='OUTCAW')
+    scr.last_run_comp = False
+    scr.save()
+
     now = datetime.datetime.now()
     o_data = pull_data_spat(all_outage_sql)
     #first item of first sql statement
@@ -105,5 +115,8 @@ def outage_crawler(request):
             up_obj.calc()
             up = Uptime_Week(week_num=w, env=e, uptime=up_obj.uptime, duration=up_obj.duration, mttr=up_obj.mttr, count=up_obj.count)
             up.save()
+
+    scr.last_run_comp = True
+    scr.save()
 
     return HttpResponseRedirect(reverse('status:status'))

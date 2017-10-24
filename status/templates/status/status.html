@@ -1,1 +1,18 @@
-Test
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<h1>Script Status</h1>
+<table class="table">
+  <tr>
+    <th>Script</th>
+    <th>Last Run</th>
+    <th>Status</th>
+  </tr>
+  {% for s in scripts %}
+  <tr>
+    <td>{{ s.name }}</td>
+    <td>{{ s.last_run }}</td>
+    <td>{{ s.last_run_comp }}</td>
+  </tr>
+  {% endfor %}
+</table>
