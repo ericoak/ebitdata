@@ -33,7 +33,7 @@ class UptimeObj():
 
         self.cur_wk = datetime.date(self.now.year, self.now.month, self.now.day).strftime("%U")
         self.wk_start = datetime.datetime.strptime('2017-W'+ str(self.wk.week_num) + '-0', "%Y-W%U-%w")
-        self.wk_end = datetime.datetime.strptime('2017-W'+ str(self.wk.week_num)  + '-6', "%Y-W%U-%w")
+        self.wk_end = datetime.datetime.strptime('2017-W'+ str(self.wk.week_num)  + '-7', "%Y-W%U-%w")
 
         self.wk_start = utc.localize(self.wk_start)
         self.wk_end = utc.localize(self.wk_end)
