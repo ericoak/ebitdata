@@ -31,9 +31,7 @@ class Month(models.Model):
 class Uptime_Week(models.Model):
     week_num = models.ForeignKey(Week)
     env = models.ForeignKey(Environment)
-    uptime = models.DecimalField(decimal_places=4, max_digits=5)
     duration = models.DecimalField(decimal_places=5, max_digits=12)
-    mttr = models.DecimalField(decimal_places=5, max_digits=12)
     count = models.IntegerField()
     def __str__(self):
         return self.env.env + " " + self.week_num.week_name

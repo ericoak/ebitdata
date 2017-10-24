@@ -51,20 +51,10 @@ class UptimeObj():
                     self.out_list.append(r)
                 #print(self.out_list)
 
-
-    def calc_uptime(self):
-        self.uptime = ((10080 - self.duration)/10080)
-
     def calc_duration(self):
         for r in self.out_list:
             td = r[4] - r[2]
             self.duration = self.duration + (td.total_seconds()/60)
-
-    def calc_mttr(self):
-        if self.count != 0:
-            self.mttr = self.duration / self.count
-        else:
-            self.mttr = 0
 
     def calc_count(self):
         self.count = len(self.out_list)
@@ -72,8 +62,6 @@ class UptimeObj():
     def calc(self):
         self.calc_duration()
         self.calc_count()
-        self.calc_uptime()
-        self.calc_mttr()
 
 
 def placeholder(request):
@@ -128,7 +116,7 @@ def outage_crawler(request):
             #initiate uptime object
             up_obj = UptimeObj(w, e, o_data)
             up_obj.calc()
-            up = Uptime_Week(week_num=w, env=e, uptime=up_obj.uptime, duration=up_obj.duration, mttr=up_obj.mttr, count=up_obj.count)
+            up = Uptime_Week(week_num=w, env=e, duration=up_obj.duration, count=up_obj.count)
             up.save()
 
     scr.last_run_comp = True
