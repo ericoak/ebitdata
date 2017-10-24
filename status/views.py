@@ -14,7 +14,9 @@ from .models import Script
 
 def status(request):
     sta = Script.objects.all()
-    context = {'scripts': sta}
+    now = datetime.datetime.now()
+    cur_wk = datetime.date(now.year, now.month, now.day).strftime("%U")
+    context = {'scripts': sta, 'cur_wk': cur_wk}
     return render(request, 'status/status.html', context)
 
 def blank(request):
