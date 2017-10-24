@@ -86,13 +86,14 @@ def pull_data_spat(sql):
     rows = spat_cur.fetchall()
     return rows
 
-def outage_crawler(request, tog):
+def delete_outages(request):
+    s = Script.objects.all()
+    s.delete()
+    o = Uptime_Week.objects.all()
+    o.delete()
+    return HttpResponseRedirect(reverse('status:status'))
 
-    if tog == 1:
-        s = Scripts.objects.get(uni_id='OUTCAW')
-        s.delete()
-        o = Uptime_Week.objects.all()
-        o.delete()
+def outage_crawler(request):
 
     scripts = Script.objects.filter(uni_id__contains='OUTCAW')
     if not scripts:

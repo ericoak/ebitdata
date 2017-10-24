@@ -19,6 +19,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'outage_crawler/(?P<tog>\d+)/$', views.outage_crawler, name='outage_crawler'),
+    url(r'delete_outages/$', views.delete_outages, name='delete_outages'),
+    url(r'outage_crawler/$', views.outage_crawler, name='outage_crawler'),
     url(r'placeholder/$', views.placeholder, name='placeholder'),
 ]
