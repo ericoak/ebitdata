@@ -49,7 +49,7 @@ class UptimeObj():
             if r[14]+r[17]+str(r[20]) == env.env+env.service+str(env.sev):
                 if  r[2] > self.wk_start and r [4] < self.wk_end:
                     self.out_list.append(r)
-                print(self.out_list)
+                #print(self.out_list)
 
 
     def calc_uptime(self):
