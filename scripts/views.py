@@ -120,3 +120,8 @@ def outage_crawler(request):
     scr.save()
 
     return HttpResponseRedirect(reverse('status:status'))
+
+def sql_out(request):
+    o_data = pull_data_spat(all_outage_sql)
+    context = {'o_data': o_data}
+    return render(request, "status/sql_out.html", context)

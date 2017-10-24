@@ -132,7 +132,7 @@ BOOTSTRAP3 = {
 
 if acc_keys.prod() == True:
     ALLOWED_HOSTS = ['*']
-    DEBUG = False
+    DEBUG = True
 
     DATABASES = {
     'default': {

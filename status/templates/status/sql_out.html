@@ -1,0 +1,14 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<h1>Outages</h1>
+<table class="table">
+  <tr>
+    <th>Record</th>
+  </tr>
+  {% for o in o_data %}
+  <tr>
+    <td>{{ o }}</td>
+  </tr>
+  {% endfor %}
+</table>
