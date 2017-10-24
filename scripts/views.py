@@ -32,8 +32,8 @@ class UptimeObj():
         utc = pytz.UTC
 
         self.cur_wk = datetime.date(self.now.year, self.now.month, self.now.day).strftime("%U")
-        self.wk_start = datetime.datetime.strptime('2017-W'+ str(self.cur_wk) + '-0', "%Y-W%U-%w")
-        self.wk_end = datetime.datetime.strptime('2017-W'+ str(self.cur_wk)  + '-6', "%Y-W%U-%w")
+        self.wk_start = datetime.datetime.strptime('2017-W'+ str(self.wk.week_num) + '-0', "%Y-W%U-%w")
+        self.wk_end = datetime.datetime.strptime('2017-W'+ str(self.wk.week_num)  + '-6', "%Y-W%U-%w")
 
         self.wk_start = utc.localize(self.wk_start)
         self.wk_end = utc.localize(self.wk_end)
@@ -46,15 +46,19 @@ class UptimeObj():
 
         #search for outages in the week
         for r in self.out_rows:
-            if  r[2] > self.wk_start and r [4] < self.wk_end and r[14]+r[17]+r[20] == env.env+env.service+str(env.sev):
-                self.out_list.append(r)
+            if r[14]+r[17]+str(r[20]) == env.env+env.service+str(env.sev):
+                if  r[2] > self.wk_start and r [4] < self.wk_end:
+                    self.out_list.append(r)
+                print(self.out_list)
+
 
     def calc_uptime(self):
         self.uptime = ((10080 - self.duration)/10080)
 
     def calc_duration(self):
         for r in self.out_list:
-            self.duration = self.duration + (r[4] - r[2])
+            td = r[4] - r[2]
+            self.duration = self.duration + (td.total_seconds()/60)
 
     def calc_mttr(self):
         if self.count != 0:
@@ -70,6 +74,7 @@ class UptimeObj():
         self.calc_count()
         self.calc_uptime()
         self.calc_mttr()
+
 
 def placeholder(request):
     pass
