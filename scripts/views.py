@@ -41,9 +41,12 @@ class UptimeObj():
         self.out_list = []
         self.duration = 0
 
+        #datetime.date(r[2].year, r[2].month, r[2].day).strftime("%U")
+        #datetime.date(r[4].year, r[4].month, r[4].day).strftime("%U")
+
         #search for outages in the week
         for r in self.out_rows:
-            if r[2] > self.wk_start and r[4] < self.wk_end and r[14]+r[17]+r[20]:
+            if datetime.date(r[2].year, r[2].month, r[2].day).strftime("%U") > self.wk_start and datetime.date(r[4].year, r[4].month, r[4].day).strftime("%U") < self.wk_end and r[14]+r[17]+r[20] == env.env+env.service+str(env.sev):
                 self.out_list.append(r)
 
     def calc_uptime(self):
